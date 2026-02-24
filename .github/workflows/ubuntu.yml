@@ -32,17 +32,8 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y \
-          libgl1-mesa-dev \     
-          libxcursor-dev \
-          libxi-dev \
-          libglfw3-dev           
-          sudo apt install -y \
-          mesa-common-dev \
-          libgl-dev \
-          libglx-dev \
           libgl1-mesa-dev \
-          libx11-dev \
-          libglfw3-dev
+          build-essential 
     
       - name: Set up Python
         uses: actions/setup-python@v4
