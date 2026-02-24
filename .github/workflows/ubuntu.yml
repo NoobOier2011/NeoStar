@@ -60,9 +60,8 @@ jobs:
     
       - name: Build with GCC
         run: |
-          xmake f -v -a ${{ matrix.arch }} --toolchain=gcc -y
-          xmake -vD -y
+          xmake
 
-      - name: Run tests
+      - name: Run
         run: |
-          xmake test -v
+          xmake run
