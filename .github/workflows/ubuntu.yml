@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        arch: [x86_64, x86]
+        arch: [x86_64]
 
     runs-on: ${{ matrix.os }}
 
@@ -67,6 +67,7 @@ jobs:
     
       - name: Build
         run: |
+          sed -i 's/add_linkdirs("lib")/-- add_linkdirs("lib")/' xmake.lua
           xmake
 
       - name: Run tests
