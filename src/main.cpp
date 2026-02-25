@@ -1,4 +1,3 @@
-#include "../include/GLFW/glfw3.h"
 #include "window/createwindow.h"
 
 using namespace neostar;
