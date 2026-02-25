@@ -25,12 +25,17 @@ class Window {
   GLFWwindow *Window;
 
   bool check_window() {
-    if (getenv("DISPLAY") == nullptr) {
-      std::cerr << "No display server found, skipping window creation!" << std::endl;
-      return false;
-    }
-    
-    std::cerr << "Display server found!" << std::endl;
+    #if defined(__linux__) || defined(__unix__) || defined(__APPLE__)
+        if (getenv("DISPLAY") == nullptr) {
+            std::cerr << "No display server found, skipping window creation!" << std::endl;
+            return false;
+        }
+        std::cerr << "Display server found!" << std::endl;
+    #endif
+
+    #ifdef _WIN32
+        std::cerr << "Windows platform, proceeding..." << std::endl;
+    #endif
     return true;
   }
 
@@ -52,7 +57,7 @@ class Window {
     while (!glfwWindowShouldClose(Window)) {
       glfwPollEvents();
       func();
-      
+
       glfwSwapBuffers(Window);
     }
   }
