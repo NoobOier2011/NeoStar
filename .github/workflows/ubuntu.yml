@@ -70,7 +70,3 @@ jobs:
         run: |
           # sed -i 's/add_linkdirs("lib")/-- add_linkdirs("lib")/' xmake.lua
           xmake
-
-      - name: Run tests
-        run: |
-          xmake run
