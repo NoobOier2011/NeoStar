@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        arch: [x86_64, x86]
+        arch: [x86_64]
 
     runs-on: ${{ matrix.os }}
 
@@ -33,7 +33,8 @@ jobs:
           sudo apt update
           sudo apt install -y \
           libgl1-mesa-dev \
-          build-essential 
+          build-essential  \
+          libglfw3-dev 
     
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -67,6 +68,7 @@ jobs:
     
       - name: Build
         run: |
+          sed -i 's/add_linkdirs("lib")/-- add_linkdirs("lib")/' xmake.lua
           xmake
 
       - name: Run
