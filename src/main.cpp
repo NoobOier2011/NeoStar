@@ -12,7 +12,7 @@ class main {
    }
   private:
    static void window_running_static() {
-   
+    
    }
 };
 }  // namespace neostar

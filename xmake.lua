@@ -7,30 +7,38 @@ add_rules("mode.debug", "mode.release")
 
 set_warnings("all", "error")
 
+local imgui_files = {
+    "third_party/imgui/*.cpp",
+    "third_party/imgui/backends/imgui_impl_glfw.cpp",
+    "third_party/imgui/backends/imgui_impl_opengl3.cpp"
+}
+
 target("NeoStar")
     set_kind("binary")
     add_files("src/*.cpp")
+    add_files(imgui_files)
 
-    -- 直接链接本地 GLFW 库
+    -- lib and include
+    add_includedirs("include", "core", "third_party")
+    add_includedirs("third_party/imgui")
+    add_includedirs("third_party/imgui/backends")
+    add_linkdirs("lib")
+
+    -- link local lib
+    -- GLFW, ImGui
     if is_plat("linux") then
-        if os.isfile("lib/libglfw.so") then
-            add_links("glfw")
-        elseif os.isfile("lib/libglfw3.a") then
-            add_links("glfw3")
-        end
-        
+        add_links("glfw")
+        add_links("GL") 
+        add_links("X11")
+
     elseif is_plat("windows") then
         if os.isfile("lib/glfw3.dll") then
             add_links("glfw3dll")
         else
             add_links("glfw3")
         end
-        add_syslinks("opengl32", "gdi32", "user32")
+        add_syslinks("opengl32", "gdi32", "user32") 
     end
-
-    -- lib and include
-    add_includedirs("include", "core")
-    add_linkdirs("lib")
 
     -- MODE
     if is_mode("debug") then
