@@ -1,6 +1,7 @@
 #ifndef NEOSTAR_WINDOW_H
 #define TOMATO_WINDOW_H
 
+#include <iostream>
 #include "GLFW/glfw3.h"
 
 namespace neostar {
@@ -12,14 +13,26 @@ class Window {
     void (*func)();
   };
 
-  void create_window(window_parameter wp) {
+  bool create_window(window_parameter wp) {
+    if (!check_window()) return false;
     init_window(wp.width, wp.height, wp.title);
     main_loop(wp.func);
     close_window();
+    return true;
   }
 
  private:
   GLFWwindow *Window;
+
+  bool check_window() {
+    if (getenv("DISPLAY") == nullptr) {
+      std::cerr << "No display server found, skipping window creation!" << std::endl;
+      return false;
+    }
+    
+    std::cerr << "Display server found!" << std::endl;
+    return true;
+  }
 
   void init_window(int width, int height, const char *title) {
     glfwInit();

@@ -4,12 +4,22 @@
 using namespace neostar;
 
 namespace neostar {
-void window_running_func() {}
+class main {
+  public:
+   void create_main_window() {
+    Window main_window;
+    main_window.create_window({1280, 720, "NeoStar", window_running_static});
+   }
+  private:
+   static void window_running_static() {
+   
+   }
+};
 }  // namespace neostar
 
 int main(int argc, char** argv) {
-  Window main_window;
-  main_window.create_window({1280, 720, "NeoStar", neostar::window_running_func});
+  neostar::main Main;
+  Main.create_main_window();
 
   return 0;
 }
