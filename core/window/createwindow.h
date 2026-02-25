@@ -37,15 +37,23 @@ class Window {
   void init_window(int width, int height, const char *title) {
     glfwInit();
 
-    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    // glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    // glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     Window = glfwCreateWindow(width, height, title, nullptr, nullptr);
+    glfwMakeContextCurrent(Window);
   }
+
   void main_loop(void (*func)()) {
     while (!glfwWindowShouldClose(Window)) {
       glfwPollEvents();
       func();
+      
+      glfwSwapBuffers(Window);
     }
   }
   void close_window() {
