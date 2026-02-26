@@ -1,5 +1,5 @@
 #ifndef NEOSTAR_WINDOW_H
-#define TOMATO_WINDOW_H
+#define NEOSTAR_WINDOW_H
 
 #include <iostream>
 #include "GLFW/glfw3.h"
